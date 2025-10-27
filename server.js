@@ -5,7 +5,7 @@ const express = require('express');
 const prisma = require('./database/config');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 
@@ -52,6 +52,16 @@ app.delete('/users', async (req, res) => {
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Failed to delete users' });
+  }
+});
+
+// Health check endpoint
+app.get('/health', async (req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    res.json({ status: 'OK', database: 'connected' });
+  } catch (error) {
+    res.status(500).json({ status: 'ERROR', database: 'disconnected' });
   }
 });
 

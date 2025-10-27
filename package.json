@@ -8,7 +8,7 @@
     "dev": "node server.js",
     "nodemon": "nodemon server.js",
     "build": "prisma generate",
-    "vercel-build": "prisma generate && prisma db push"
+    "vercel-build": "prisma generate"
   },
   "engines": {
     "node": ">=14.0.0"
