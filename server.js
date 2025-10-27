@@ -3,9 +3,22 @@ require('dotenv').config();
 
 const express = require('express');
 const prisma = require('./database/config');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Настройка CORS
+app.use(cors({
+  origin: [
+    'https://react-vercel-opal.vercel.app',
+    'http://localhost:5173', // для разработки
+    'http://localhost:3000'  // на всякий случай
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(express.json());
 
