@@ -1,7 +1,14 @@
 // database/config.js
 const { PrismaClient } = require('@prisma/client');
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  log: ['query', 'error', 'warn'],
+  datasources: {
+    db: {
+      url: process.env.DATABASE_URL
+    }
+  }
+});
 
 // Проверка подключения (только для разработки)
 if (process.env.NODE_ENV !== 'production') {
