@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Hello World from Vercel!');
 });
 
 // Роут для получения всех пользователей
@@ -55,7 +55,12 @@ app.delete('/users', async (req, res) => {
   }
 });
 
+// Экспорт для Vercel
+module.exports = app;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Локальный запуск
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
