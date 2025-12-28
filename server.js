@@ -68,6 +68,24 @@ app.delete('/users', async (req, res) => {
   }
 });
 
+// Роут для удаления одного пользователя по ID
+app.delete('/users/:id', async (req, res) => {
+  try {
+    const userId = parseInt(req.params.id);
+
+    const deletedUser = await prisma.users.delete({
+      where: {
+        id: userId
+      }
+    });
+
+    res.json({message: `User: ${deletedUser.username} deleted successfully`});
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Failed to delete user' });
+  }
+});
+
 // Health check endpoint
 app.get('/health', async (req, res) => {
   try {
